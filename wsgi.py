@@ -1,7 +1,6 @@
 import model
 import simplejson as json
 
-
 def app(environ, start_response):
     body = response(environ)
     start_response("200 ok", [("Content-type", "application/json")])
@@ -14,7 +13,8 @@ def response(environ):
     uri_parse = uri.split('/')
     first_uri = uri_parse[1]
     if first_uri == "user":
-        dbtuple = model.User.get_feeds()
+        user = model.User()
+        dbtuple = user.get_feeds()
         dbjson = json.dumps([{"id": i[0], "ratio": i[1]} for i in dbtuple])
         return dbjson.encode('utf-8')
     else:

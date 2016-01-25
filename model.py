@@ -1,13 +1,12 @@
 import psycopg2
 
-
 def condb():
     con = psycopg2.connect("dbname='newapp' user='ec2-user' host='localhost' password='8326022'")
     return con
 
 
 class User:
-    def __init__(self, dbid):
+    def __init__(self, dbid=None):
         self.dbid = dbid
 
     def get_feeds(self):

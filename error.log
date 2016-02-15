@@ -1,0 +1,119 @@
+[2016-01-25 12:26:45 +0000] [21013] [INFO] Starting gunicorn 19.4.5
+[2016-01-25 12:26:45 +0000] [21013] [INFO] Listening at: http://127.0.0.1:8000 (21013)
+[2016-01-25 12:26:45 +0000] [21013] [INFO] Using worker: sync
+[2016-01-25 12:26:45 +0000] [21016] [INFO] Booting worker with pid: 21016
+[2016-01-25 12:26:45 +0000] [21018] [INFO] Booting worker with pid: 21018
+[2016-01-25 12:26:45 +0000] [21020] [INFO] Booting worker with pid: 21020
+[2016-01-25 12:26:53 +0000] [21018] [ERROR] Error handling request /content
+Traceback (most recent call last):
+  File "/home/ec2-user/project/ios1/IOS1/local/lib/python3.4/site-packages/gunicorn/workers/sync.py", line 130, in handle
+    self.handle_request(listener, req, client, addr)
+  File "/home/ec2-user/project/ios1/IOS1/local/lib/python3.4/site-packages/gunicorn/workers/sync.py", line 171, in handle_request
+    respiter = self.wsgi(environ, resp.start_response)
+  File "/home/ec2-user/project/ios1/ibuydeal/wsgi.py", line 5, in app
+    body = response(environ)
+  File "/home/ec2-user/project/ios1/ibuydeal/wsgi.py", line 20, in response
+    content_id = uriparse[2]
+NameError: name 'uriparse' is not defined
+[2016-01-25 12:26:58 +0000] [21018] [ERROR] Error handling request /content/25
+Traceback (most recent call last):
+  File "/home/ec2-user/project/ios1/IOS1/local/lib/python3.4/site-packages/gunicorn/workers/sync.py", line 130, in handle
+    self.handle_request(listener, req, client, addr)
+  File "/home/ec2-user/project/ios1/IOS1/local/lib/python3.4/site-packages/gunicorn/workers/sync.py", line 171, in handle_request
+    respiter = self.wsgi(environ, resp.start_response)
+  File "/home/ec2-user/project/ios1/ibuydeal/wsgi.py", line 5, in app
+    body = response(environ)
+  File "/home/ec2-user/project/ios1/ibuydeal/wsgi.py", line 20, in response
+    content_id = uriparse[2]
+NameError: name 'uriparse' is not defined
+[2016-01-25 12:27:02 +0000] [21020] [ERROR] Error handling request /content/36
+Traceback (most recent call last):
+  File "/home/ec2-user/project/ios1/IOS1/local/lib/python3.4/site-packages/gunicorn/workers/sync.py", line 130, in handle
+    self.handle_request(listener, req, client, addr)
+  File "/home/ec2-user/project/ios1/IOS1/local/lib/python3.4/site-packages/gunicorn/workers/sync.py", line 171, in handle_request
+    respiter = self.wsgi(environ, resp.start_response)
+  File "/home/ec2-user/project/ios1/ibuydeal/wsgi.py", line 5, in app
+    body = response(environ)
+  File "/home/ec2-user/project/ios1/ibuydeal/wsgi.py", line 20, in response
+    content_id = uriparse[2]
+NameError: name 'uriparse' is not defined
+[2016-01-25 12:27:42 +0000] [21020] [INFO] Worker reloading: /home/ec2-user/project/ios1/ibuydeal/wsgi.py modified
+[2016-01-25 12:27:42 +0000] [21020] [INFO] Worker exiting (pid: 21020)
+[2016-01-25 12:27:43 +0000] [21037] [INFO] Booting worker with pid: 21037
+[2016-01-25 12:27:43 +0000] [21016] [INFO] Worker reloading: /home/ec2-user/project/ios1/ibuydeal/wsgi.py modified
+[2016-01-25 12:27:43 +0000] [21018] [INFO] Worker reloading: /home/ec2-user/project/ios1/ibuydeal/wsgi.py modified
+[2016-01-25 12:27:43 +0000] [21016] [INFO] Worker exiting (pid: 21016)
+[2016-01-25 12:27:43 +0000] [21039] [INFO] Booting worker with pid: 21039
+[2016-01-25 12:27:43 +0000] [21018] [INFO] Worker exiting (pid: 21018)
+[2016-01-25 12:27:44 +0000] [21041] [INFO] Booting worker with pid: 21041
+[2016-01-25 12:27:54 +0000] [21041] [ERROR] Error handling request /content
+Traceback (most recent call last):
+  File "/home/ec2-user/project/ios1/IOS1/local/lib/python3.4/site-packages/gunicorn/workers/sync.py", line 130, in handle
+    self.handle_request(listener, req, client, addr)
+  File "/home/ec2-user/project/ios1/IOS1/local/lib/python3.4/site-packages/gunicorn/workers/sync.py", line 171, in handle_request
+    respiter = self.wsgi(environ, resp.start_response)
+  File "/home/ec2-user/project/ios1/ibuydeal/wsgi.py", line 5, in app
+    body = response(environ)
+  File "/home/ec2-user/project/ios1/ibuydeal/wsgi.py", line 20, in response
+    content_id = uri_parse[2]
+IndexError: list index out of range
+[2016-01-26 06:45:19 +0000] [21039] [ERROR] Error handling request /content/Optional(37.0)
+Traceback (most recent call last):
+  File "/home/ec2-user/project/ios1/IOS1/local/lib/python3.4/site-packages/gunicorn/workers/sync.py", line 130, in handle
+    self.handle_request(listener, req, client, addr)
+  File "/home/ec2-user/project/ios1/IOS1/local/lib/python3.4/site-packages/gunicorn/workers/sync.py", line 171, in handle_request
+    respiter = self.wsgi(environ, resp.start_response)
+  File "/home/ec2-user/project/ios1/ibuydeal/wsgi.py", line 5, in app
+    body = response(environ)
+  File "/home/ec2-user/project/ios1/ibuydeal/wsgi.py", line 21, in response
+    dbtuple = content_db(content_id)
+  File "/home/ec2-user/project/ios1/ibuydeal/wsgi.py", line 42, in content_db
+    cur.execute("SELECT title, name FROM myapp_content,myapp_creator WHERE myapp_content.id={} and myapp_content.creator_id=myapp_creator.id".format(content_id))
+psycopg2.ProgrammingError: function optional(numeric) does not exist
+LINE 1: ...yapp_content,myapp_creator WHERE myapp_content.id=Optional(3...
+                                                             ^
+HINT:  No function matches the given name and argument types. You might need to add explicit type casts.
+
+[2016-01-29 11:34:33 +0000] [21041] [INFO] Worker reloading: /home/ec2-user/project/ios1/ibuydeal/wsgi.py modified
+[2016-01-29 11:34:34 +0000] [21041] [INFO] Worker exiting (pid: 21041)
+[2016-01-29 11:34:34 +0000] [24991] [INFO] Booting worker with pid: 24991
+[2016-01-29 11:34:34 +0000] [21039] [INFO] Worker reloading: /home/ec2-user/project/ios1/ibuydeal/wsgi.py modified
+[2016-01-29 11:34:34 +0000] [21037] [INFO] Worker reloading: /home/ec2-user/project/ios1/ibuydeal/wsgi.py modified
+[2016-01-29 11:34:34 +0000] [21039] [INFO] Worker exiting (pid: 21039)
+[2016-01-29 11:34:34 +0000] [21037] [INFO] Worker exiting (pid: 21037)
+[2016-01-29 11:34:34 +0000] [24993] [INFO] Booting worker with pid: 24993
+[2016-01-29 11:34:34 +0000] [24994] [INFO] Booting worker with pid: 24994
+[2016-01-29 11:34:37 +0000] [24994] [ERROR] Error handling request /user
+Traceback (most recent call last):
+  File "/home/ec2-user/project/ios1/IOS1/local/lib/python3.4/site-packages/gunicorn/workers/sync.py", line 130, in handle
+    self.handle_request(listener, req, client, addr)
+  File "/home/ec2-user/project/ios1/IOS1/local/lib/python3.4/site-packages/gunicorn/workers/sync.py", line 171, in handle_request
+    respiter = self.wsgi(environ, resp.start_response)
+  File "/home/ec2-user/project/ios1/ibuydeal/wsgi.py", line 5, in app
+    body = response(environ)
+  File "/home/ec2-user/project/ios1/ibuydeal/wsgi.py", line 16, in response
+    dbtuple = user_db()
+  File "/home/ec2-user/project/ios1/ibuydeal/wsgi.py", line 34, in user_db
+    cur.execute("SELECT id,thumbnail_ratio,title,name FROM myapp_content,myapp_creator WHERE myapp_content.creator_id=myapp_creator.id;")
+psycopg2.ProgrammingError: column reference "id" is ambiguous
+LINE 1: SELECT id,thumbnail_ratio,title,name FROM myapp_content,myap...
+               ^
+
+[2016-01-29 11:35:56 +0000] [24993] [INFO] Worker reloading: /home/ec2-user/project/ios1/ibuydeal/wsgi.py modified
+[2016-01-29 11:35:56 +0000] [24994] [INFO] Worker reloading: /home/ec2-user/project/ios1/ibuydeal/wsgi.py modified
+[2016-01-29 11:35:56 +0000] [24993] [INFO] Worker exiting (pid: 24993)
+[2016-01-29 11:35:56 +0000] [25019] [INFO] Booting worker with pid: 25019
+[2016-01-29 11:35:56 +0000] [24994] [INFO] Worker exiting (pid: 24994)
+[2016-01-29 11:35:56 +0000] [25021] [INFO] Booting worker with pid: 25021
+[2016-01-29 11:35:57 +0000] [24991] [INFO] Worker reloading: /home/ec2-user/project/ios1/ibuydeal/wsgi.py modified
+[2016-01-29 11:35:57 +0000] [24991] [INFO] Worker exiting (pid: 24991)
+[2016-01-29 11:35:57 +0000] [25023] [INFO] Booting worker with pid: 25023
+[2016-01-30 07:15:23 +0000] [25021] [INFO] Worker reloading: /home/ec2-user/project/ios1/ibuydeal/wsgi.py modified
+[2016-01-30 07:15:23 +0000] [25023] [INFO] Worker reloading: /home/ec2-user/project/ios1/ibuydeal/wsgi.py modified
+[2016-01-30 07:15:23 +0000] [25021] [INFO] Worker exiting (pid: 25021)
+[2016-01-30 07:15:23 +0000] [25023] [INFO] Worker exiting (pid: 25023)
+[2016-01-30 07:15:23 +0000] [2326] [INFO] Booting worker with pid: 2326
+[2016-01-30 07:15:23 +0000] [2328] [INFO] Booting worker with pid: 2328
+[2016-01-30 07:15:23 +0000] [25019] [INFO] Worker reloading: /home/ec2-user/project/ios1/ibuydeal/wsgi.py modified
+[2016-01-30 07:15:23 +0000] [25019] [INFO] Worker exiting (pid: 25019)
+[2016-01-30 07:15:23 +0000] [2330] [INFO] Booting worker with pid: 2330

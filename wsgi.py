@@ -1,4 +1,4 @@
-from models import User, Content, db_data
+from models import User, Video_Content, Item
 
 #wsgi interface function
 def app(environ, start_response):
@@ -21,12 +21,14 @@ def response(environ):
         user = User()
         return user.response()
     elif first_uri == "content":
-        content_id = int(uri_parse[2])
-        content = Content(content_id)
-        return content.response()
+        if uri_parse[2] == "video" :
+            content_id = int(uri_parse[3])
+            content = Video_Content(content_id)
+            return content.response(uri_parse[4])
     elif first_uri == "item":
         item_id = int(uri_parse[2])
-        return db_data("item",item_id,*uri_parse[3:])
+        item = Item(item_id)
+        return item.response(uri_parse[3])
     else:
         return "what do you want?".encode('utf-8')
 

@@ -1,29 +1,33 @@
-from user import User, Video_Content, Item
+from user import User
+from content import VideoContent
+from item import Item
 
-#wsgi interface function
+
+# wsgi interface function
 def app(environ, start_response):
     body = response(environ)
     start_response("200 ok", [("Content-type", "application/json")])
     return [body]
 
-#webserver environ is a dict, take this dict as input, which include uri, method, parameters, and return response
+
+#  environ is a dict, take this dict as input, which include uri, method, parameters, and return response
 def response(environ):
     method = environ['REQUEST_METHOD']
     uri = environ['RAW_URI']
 
-    #uri_parse is www.111.com/1st/2nd/3rd split by /
+    # uri_parse is www.111.com/1st/2nd/3rd split by /
     uri_parse = uri.split('/')
 
-    #1st in uri_parse
+    # 1st in uri_parse
     first_uri = uri_parse[1]
 
     if first_uri == "user":
         user = User()
         return user.response()
     elif first_uri == "content":
-        if uri_parse[2] == "video" :
+        if uri_parse[2] == "video":
             content_id = int(uri_parse[3])
-            content = Video_Content(content_id)
+            content = VideoContent(content_id)
             return content.response(uri_parse[4])
     elif first_uri == "item":
         item_id = int(uri_parse[2])

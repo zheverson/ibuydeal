@@ -1,5 +1,4 @@
 from database import cursor, dictcursor
-import simplejson as json
 from media import image_ratio, image_path
 from database import json_response
 
@@ -46,8 +45,7 @@ class Item:
 
     def response(self, a):
         if a == 'colors':
-            jsondata = json.dumps(self.get_all_colors())
-            return jsondata.encode('utf-8')
+            return json_response(self.get_all_colors())
         if a == 'contents':
             from content import VideoContentList
             dbdata = self.get_contents()

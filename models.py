@@ -21,7 +21,7 @@ class User:
         self.id = id
 
     def get_contents(self):
-        contents_id = (25,29,34,45,24)
+        contents_id = (45,29,34,24,25)
         return contents_id
 
     def db_values(self):
@@ -30,8 +30,13 @@ class User:
         contents_id = self.get_contents()
         cur.execute("SELECT content.id,title,name FROM content,creator WHERE content.creator_id=creator.id and content.id IN %s;",(contents_id,))
         dbtuple = cur.fetchall()
+        dbtuple.sort(key=self.feedOrder)
         con.close()
         return dbtuple
+        
+    def feedOrder(self,value):
+        stupid = {45:1,29:2,34:3,24:4,25:5}
+        return stupid[value[0]]
 
     def response(self):
         dbdata = self.db_values()
@@ -44,6 +49,8 @@ class Video_Content:
 
     def __init__(self,id):
         self.id = id
+        
+    
 
     def get_itemtimes(self):
         con = dbcon()
@@ -91,25 +98,12 @@ class Video_Content:
             json_item = json.dumps(item_time)
             return json_item.encode('utf-8')
 
-
-def db_data(table, pkey,*args):
-    con = dbcon()
-    cur = con.cursor()
-    cur.execute("""SELECT {} FROM {} WHERE id=%s;""".format(','.join(args),table),(pkey,))
-    db_tuple = list(cur.fetchone())
-    for index,i in enumerate(db_tuple):
-        if not isinstance(i,str):
-            db_tuple[index] = str(i)
-    con.close()
-    return '&#'.join(db_tuple).encode('utf-8')
-
 class Item:
     def __init__(self,id):
         self.id = id
 
     def product_image_path(self):
-        return static_path + 'image/item/' + str(self.id) + '/product'
-        
+        return static_path + 'image/item/' + str(self.id) + '/product'        
 
     def color_image_path(self):
         return static_path + 'image/item/' + str(self.id) + '/color'
@@ -130,9 +124,23 @@ class Item:
         cur = con.cursor()
         cur.execute("SELECT id,color FROM item WHERE item.id in (SELECT item.id FROM item WHERE item.product=(SELECT product FROM item WHERE id=%s))",(self.id,))
         data = cur.fetchall()
+        con.close()
         return data
         
+    def get_contents(self):
+        con = dbcon()
+        cur = con.cursor()
+        cur.execute("SELECT content_id FROM content_item WHERE content_item.id in (SELECT contenttime_id FROM contenttime_item WHERE item_id=%s) GROUP BY content_id",(self.id,))
+        cur.execute("SELECT creator.name,content.title,content.id FROM creator,content WHERE content.id in (SELECT content_id FROM content_item WHERE content_item.id in (SELECT contenttime_id FROM contenttime_item WHERE item_id=%s) GROUP BY content_id) and creator.id = content.creator_id",(self.id,))
+        dbtuple = cur.fetchall()
+        return dbtuple
+
     def response(self,a):
         if a == 'colors':
             jsondata = json.dumps(self.get_all_colors())
             return jsondata.encode('utf-8')
+        if a == 'contents':
+            dbdata = self.get_contents()
+            commaList = ','.join([str(i) for i in dbdata[0]])
+            return commaList.encode('utf-8')
+            

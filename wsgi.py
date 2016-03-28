@@ -1,4 +1,4 @@
-from models import User, Video_Content, Item
+from user import User, Video_Content, Item
 
 #wsgi interface function
 def app(environ, start_response):

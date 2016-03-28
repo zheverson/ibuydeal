@@ -2,7 +2,6 @@ from database import cursor, dictcursor
 import simplejson as json
 from media import image_ratio, image_path
 from database import json_response
-from content import VideoContentList
 
 
 class Item:
@@ -50,6 +49,7 @@ class Item:
             jsondata = json.dumps(self.get_all_colors())
             return jsondata.encode('utf-8')
         if a == 'contents':
+            from content import VideoContentList
             dbdata = self.get_contents()
             dbdata1 = VideoContentList(dbdata).add_content_thumbratio()
             return json_response(dbdata1)

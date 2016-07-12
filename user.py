@@ -11,7 +11,7 @@ class User:
         self.id = userid
 
     def get_contents(self):
-        contents_id = (45, 29, 34, 24, 25)
+        contents_id = (46, 29, 34, 24, 25)
         return contents_id
 
     def get_contents_info(self):
@@ -25,7 +25,7 @@ class User:
         return dbtuple
 
     def feed_order(self, value):
-        stupid = {45: 1, 29: 2, 34: 3, 24: 4, 25: 5}
+        stupid = {46: 2, 29: 3, 34: 5, 24: 1, 25: 4}
         return stupid[value['id']]
 
     def response(self):

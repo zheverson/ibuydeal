@@ -1,6 +1,7 @@
 import unittest
-from item import Item
-from product import Product
+from ibuydeal.Product.item import Item
+from ibuydeal.Product.product import Product
+
 
 class ItemTest(unittest.TestCase):
     def setUp(self):

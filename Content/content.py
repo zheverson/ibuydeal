@@ -22,7 +22,9 @@ class VideoContent:
 
     def __get_itemtimes(self):
         cur = dictcursor()
-        cur.execute("SELECT display_time,ARRAY_AGG(item_id) as items FROM content_item,contenttime_item WHERE content_id=%s and content_item.id=contenttime_item.contenttime_id GROUP BY content_item.id", (self.id,))
+        cur.execute(
+            "SELECT display_time,ARRAY_AGG(item_id) as items FROM content_item,contenttime_item WHERE content_id=%s and content_item.id=contenttime_item.contenttime_id GROUP BY content_item.id",
+            (self.id,))
         dbtuple = cur.fetchall()
         return dbtuple
 
@@ -38,7 +40,9 @@ class VideoContent:
 
     def get_info(self):
         cur = dictcursor()
-        cur.execute("SELECT content.id,title,name FROM content,creator WHERE content.creator_id=creator_id and content.id=%s;", (self.id,))
+        cur.execute(
+            "SELECT content.id,title,name FROM content,creator WHERE content.creator_id=creator_id and content.id=%s;",
+            (self.id,))
         dbtuple = cur.fetchall()
 
     def response(self, a):
@@ -49,8 +53,7 @@ class VideoContent:
 
 
 class ContentList:
-
-    #input dictionary {content_id:order index}
+    # input dictionary {content_id:order index}
     def __init__(self, ordered_content_dict):
         self._contents_order = ordered_content_dict
 
@@ -59,8 +62,8 @@ class ContentList:
         contents_list = tuple(self._contents_order.keys())
         cur = dictcursor()
         cur.execute(
-            "SELECT content.id,title,name FROM content,creator WHERE content.creator_id=creator.id and content.id IN %s;",
-            (contents_list,))
+                "SELECT content.id,title,name FROM content,creator WHERE content.creator_id=creator.id and content.id IN %s;",
+                (contents_list,))
 
         dbtuple = cur.fetchall()
         return dbtuple
@@ -71,7 +74,7 @@ class ContentList:
         return temp
 
     def __feed_order(self, value):
-       return self._contents_order[value["id"]]
+        return self._contents_order[value["id"]]
 
     @property
     def info(self):
@@ -84,7 +87,3 @@ class ContentList:
             ratio = image_ratio(VideoContent(i['id']).thumb_path('mobile'))
             i['ratio'] = ratio
         return info_list
-
-
-
-

@@ -1,5 +1,6 @@
 from ibuydeal.DB.database import cursor, json_response
 
+
 class Product:
     def __init__(self, id):
         self.id = id

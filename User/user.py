@@ -1,7 +1,6 @@
 
-from DB.database import dictcursor
-from DB.database import json_response
-from Content.content import ContentList
+from ibuydeal.DB.database import json_response
+from ibuydeal.Content.content import ContentList
 
 static_path = '/home/ec2-user/static/'
 

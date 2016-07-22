@@ -1,10 +1,8 @@
-import  unittest
-from content import VideoContent, ContentList
+import unittest
+from ibuydeal.Content.content import ContentList
+
 
 class ContentTest(unittest.TestCase):
-    
-    def setUp(self):
-        pass
 
     def testContentList(self):
         cl = ContentList({46: 2, 29: 3, 34: 5, 24: 1, 25: 4})
@@ -12,5 +10,3 @@ class ContentTest(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
-
-

@@ -1,5 +1,6 @@
 import unittest
-from user import User
+from ibuydeal.User.user import User
+
 
 class UserTest(unittest.TestCase):
     def testUser(self):

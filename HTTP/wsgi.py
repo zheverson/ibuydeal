@@ -1,6 +1,6 @@
-from user import User
+from Product.item import Item
 from content import VideoContent
-from item import Item
+from user import User
 
 
 # wsgi interface function

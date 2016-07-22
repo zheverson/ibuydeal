@@ -1,8 +1,8 @@
 import simplejson as json
 
-from Content.media import image_path, image_ratio
-from DB.database import dictcursor
-from Product.item import Item
+from ibuydeal.Content.media import image_path, image_ratio
+from ibuydeal.DB.database import dictcursor
+from ibuydeal.Product.item import Item
 
 
 class VideoContent:
@@ -55,8 +55,8 @@ class ContentList:
         self._contents_order = ordered_content_dict
 
     @property
-    def __db_info(self):
-        contents_list = list(self._contents_order.keys())
+    def db_info(self):
+        contents_list = tuple(self._contents_order.keys())
         cur = dictcursor()
         cur.execute(
             "SELECT content.id,title,name FROM content,creator WHERE content.creator_id=creator.id and content.id IN %s;",
@@ -65,16 +65,18 @@ class ContentList:
         dbtuple = cur.fetchall()
         return dbtuple
 
-    def __ordered_info(self):
-        return self.__db_info.sort(key=self.__feed_order)
+    def ordered_info(self):
+        temp = self.db_info
+        temp.sort(key=self.__feed_order)
+        return temp
 
-   def __feed_order(self, value):
+    def __feed_order(self, value):
        return self._contents_order[value["id"]]
 
-   @property
-   def info(self):
-        ordered_data = self.__ordered_info()
-        full_data = __add_thumb_ratio(ordered_data)
+    @property
+    def info(self):
+        ordered_data = self.ordered_info()
+        full_data = self.__add_thumb_ratio(ordered_data)
         return full_data
 
     def __add_thumb_ratio(self, info_list):

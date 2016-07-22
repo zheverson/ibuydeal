@@ -1,6 +1,6 @@
-from Product.item import Item
-from content import VideoContent
-from user import User
+from ibuydeal.Product import item,product
+from ibuydeal.Content.content import VideoContent
+from ibuydeal.User.user import User
 
 
 # wsgi interface function
@@ -31,8 +31,12 @@ def response(environ):
             return content.response(uri_parse[4])
     elif first_uri == "item":
         item_id = int(uri_parse[2])
-        item = Item(item_id)
-        return item.response(uri_parse[3])
+        item1 = item.Item(item_id)
+        return item1.response(uri_parse[3])
+    elif first_uri == "product":
+        product_id = int(uri_parse[2])
+        product1 = product.Product(product_id)
+        return product1.response(uri_parse[3])
     else:
         return "what do you want?".encode('utf-8')
 

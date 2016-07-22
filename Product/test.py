@@ -1,6 +1,6 @@
 import unittest
 from item import Item
-from Product import Product
+from product import Product
 
 class ItemTest(unittest.TestCase):
     def setUp(self):

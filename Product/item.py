@@ -1,6 +1,6 @@
-from ibuydeal.database import cursor, dictcursor, json_response
-from ibuydeal.media import image_ratio, image_path
-import Product
+from ibuydeal.DB.database import cursor, dictcursor, json_response
+from ibuydeal.Content.media import image_ratio, image_path
+from ibuydeal.Product.product import Product
 
 
 class Item:
@@ -27,13 +27,14 @@ class Item:
 
     @property
     def basic_info(self):
-        info = self.__item_info
+        info = self.item_info
         product = Product(self.product_id)
-        return info.update(product.get_info())
+        info.update(product.info)
+        return info
 
     # price, image ratio and item id
     @property
-    def __item_info(self):
+    def item_info(self):
         cur = cursor()
         cur.execute(
             "SELECT item.price FROM item WHERE item.id=%s",
@@ -52,10 +53,9 @@ class Item:
             (self.id,))
         dbtuple = cur.fetchall()
         return dbtuple
-
-    def response(self, a):
-        if a == 'contents':
-            from content import VideoContentList
-            dbdata = self.contents
-            dbdata1 = VideoContentList(dbdata).add_content_thumbratio()
-            return json_response(dbdata1)
+    
+    def response(self,para):
+        if para == 'info':
+            return json_response(self.basic_info)
+        elif para == 'contents':
+            return json_response(self.contents)

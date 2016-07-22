@@ -17,4 +17,4 @@ class User:
 
     def response(self):
         dbdata = ContentList(self.contents).info
-        return json_response(dbdata.info)
+        return json_response(dbdata)

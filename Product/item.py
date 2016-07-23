@@ -1,21 +1,20 @@
-from ibuydeal.DB.database import cursor, dictcursor, json_response
+from ibuydeal.DB.database import dictcursor, json_response
 from ibuydeal.Content.media import image_ratio, image_path
-from ibuydeal.Product.product import Product
 
 
 class Item:
     def __init__(self, itemid):
         self.id = itemid
-        self._product_id = None
 
     @property
-    def product_id(self):
-        if self._product_id is None:
-            cur = cursor()
-            cur.execute("SELECT item.product FROM item WHERE item.id=%s",(self.id,))
-            data = cur.fetchone()
-            self._product_id = data[0]
-        return self._product_id
+    def product_info(self):
+        cur = dictcursor()
+        cur.execute(
+                "SELECT item.product,product.brand,product.name FROM item,product WHERE item.product=product.id and item.id=%s",
+                (self.id,))
+        data = cur.fetchone()
+        data["productid"] = data.pop("id")
+        return data
 
     @property
     def product_image_path(self):
@@ -28,21 +27,19 @@ class Item:
     @property
     def basic_info(self):
         info = self.item_info
-        product = Product(self.product_id)
-        info.update(product.info)
+        info.update(self.product_info)
         return info
 
     # price, image ratio and item id
     @property
     def item_info(self):
-        cur = cursor()
+        cur = dictcursor()
         cur.execute(
-            "SELECT item.price FROM item WHERE item.id=%s",
+            "SELECT item.id, item.price, item.color FROM item WHERE item.id=%s",
             (self.id,))
         data = cur.fetchone()
-        price = data[0]
-        return {"id": self.id, "price": price,
-                "ratio": image_ratio(self.product_image_path)}
+        data["ratio"] = image_ratio(self.product_image_path)
+        return data
 
     @property
     def contents(self):
@@ -54,7 +51,7 @@ class Item:
         dbtuple = cur.fetchall()
         return dbtuple
     
-    def response(self,para):
+    def response(self, para):
         if para == 'info':
             return json_response(self.basic_info)
         elif para == 'contents':

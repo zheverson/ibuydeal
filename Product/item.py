@@ -10,8 +10,7 @@ class Item:
     def product_info(self):
         cur = dictcursor()
         cur.execute(
-            "SELECT item.product, brand.name, product.name FROM item, product, brand"
-            " WHERE brand.id=product.brand, item.product=product.id and item.id=%s",
+            "SELECT item.product, brand.name, product.name FROM item, product, brand WHERE brand.id=product.brand, item.product=product.id and item.id=%s",
             (self.id,)
         )
         data = cur.fetchone()

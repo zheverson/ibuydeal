@@ -11,7 +11,7 @@ class Item:
         cur = dictcursor()
         cur.execute(
             "SELECT item.product, brand.name, product.name FROM item, product, brand"
-            " WHERE brand.id = product.brand, item.product=product.id and item.id=%s",
+            " WHERE brand.id=product.brand, item.product=product.id and item.id=%s",
             (self.id,)
         )
         data = cur.fetchone()

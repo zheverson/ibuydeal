@@ -24,7 +24,7 @@ class Product:
             "SELECT brand.name,product.name FROM brand,product WHERE product.brand=brand.id and product.id=%s",
             (self.id,))
         data = cur.fetchone()
-        return {'brand': data[0], 'name': data[1]}
+        return {'productid': self.id, 'brand': data[0], 'name': data[1]}
 
     def response(self, request):
         if request == "colors":

@@ -62,8 +62,9 @@ class ContentList:
         contents_list = tuple(self._contents_order.keys())
         cur = dictcursor()
         cur.execute(
-                "SELECT content.id,title,name FROM content,creator WHERE content.creator_id=creator.id and content.id IN %s;",
-                (contents_list,))
+            "SELECT content.id,title,name FROM content,creator WHERE content.creator_id=creator.id and content.id IN %s;",
+            (contents_list,)
+        )
 
         dbtuple = cur.fetchall()
         return dbtuple

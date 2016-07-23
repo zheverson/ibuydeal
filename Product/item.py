@@ -13,7 +13,6 @@ class Item:
                 "SELECT item.product,product.brand,product.name FROM item,product WHERE item.product=product.id and item.id=%s",
                 (self.id,))
         data = cur.fetchone()
-        data["productid"] = data.pop("id")
         return data
 
     @property

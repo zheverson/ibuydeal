@@ -1,4 +1,4 @@
-from ibuydeal.DB.database import dictcursor, json_response
+from ibuydeal.DB.database import cursor, dictcursor, json_response
 from ibuydeal.Content.media import image_ratio, image_path
 
 
@@ -8,14 +8,15 @@ class Item:
 
     @property
     def product_info(self):
-        cur = dictcursor()
+        cur = cursor()
         cur.execute(
             "SELECT item.product, brand.name, product.name FROM item, product, brand "
             "WHERE brand.id=product.brand and item.product=product.id and item.id=%s",
             (self.id,)
         )
         data = cur.fetchone()
-        return data
+        dictdata = {"brand": data[1], "product": data[0], "name": data[2]}
+        return dictdata
 
     @property
     def product_image_path(self):

@@ -62,7 +62,7 @@ class ContentList:
         contents_list = tuple(self._contents_order.keys())
         with dictcursor() as cur:
             cur.execute(
-                "SELECT content.id,title,name FROM content,creator WHERE content.creator_id=creator.id and content.id IN %s;",
+                "SELECT content.id,title,name,mobile_info FROM content,creator WHERE content.creator_id=creator.id and content.id IN %s;",
                 (contents_list,)
             )
             dbtuple = cur.fetchall()
@@ -85,5 +85,5 @@ class ContentList:
     def __add_thumb_ratio(self, info_list):
         for i in info_list:
             ratio = image_ratio(VideoContent(i['id']).thumb_path('mobile'))
-            i['ratio'] = ratio
+            i['thumb_ratio'] = ratio
         return info_list

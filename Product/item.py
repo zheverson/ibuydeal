@@ -1,5 +1,5 @@
 from ibuydeal.DB.database import cursor, dictcursor, json_response
-from ibuydeal.Content.media import image_ratio, image_path
+from ibuydeal.Media.media import image_ratio, image_path
 
 
 class Item:

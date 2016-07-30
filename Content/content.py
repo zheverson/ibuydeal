@@ -1,7 +1,7 @@
 import simplejson as json
 
-from ibuydeal.Content.media import image_path, image_ratio
 from ibuydeal.DB.database import dictcursor
+from ibuydeal.Media.media import image_path, image_ratio
 from ibuydeal.Product.item import Item
 
 

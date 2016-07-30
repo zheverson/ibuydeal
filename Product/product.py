@@ -9,11 +9,10 @@ class Product:
     # return [item_id1, item_id2, ...]
     @property
     def items_id(self):
-        cur = cursor()
-        cur.execute(
-            "SELECT item.id FROM item WHERE item.product=%s", (self.id,)
-        )
-        data = cur.fetchall()
+        with cursor() as cur:
+            cur.execute("SELECT item.id FROM item WHERE item.product=%s", (self.id,))
+            data = cur.fetchall()
+
         return [i[0] for i in data]
 
     # return [{itemid:1, brand: '', price: ''}]

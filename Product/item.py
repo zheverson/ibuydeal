@@ -8,13 +8,13 @@ class Item:
 
     @property
     def product_info(self):
-        cur = cursor()
-        cur.execute(
-            "SELECT item.product, brand.name, product.name FROM item, product, brand "
-            "WHERE brand.id=product.brand and item.product=product.id and item.id=%s",
-            (self.id,)
-        )
-        data = cur.fetchone()
+        with cursor() as cur:
+            cur.execute(
+                "SELECT item.product, brand.name, product.name FROM item, product, brand "
+                "WHERE brand.id=product.brand and item.product=product.id and item.id=%s",
+                (self.id,)
+            )
+            data = cur.fetchone()
         dictdata = {"brand": data[1], "product": data[0], "name": data[2]}
         return dictdata
 
@@ -35,22 +35,22 @@ class Item:
     # price, image ratio and item id
     @property
     def item_info(self):
-        cur = dictcursor()
-        cur.execute(
-            "SELECT item.id, item.price, item.color FROM item WHERE item.id=%s",
-            (self.id,))
-        data = cur.fetchone()
+        with dictcursor() as cur:
+            cur.execute(
+                "SELECT item.id, item.price, item.color FROM item WHERE item.id=%s",
+                (self.id,))
+            data = cur.fetchone()
         data["ratio"] = image_ratio(self.product_image_path)
         return data
 
     @property
     def contents(self):
 
-        cur = dictcursor()
-        cur.execute(
-            "SELECT creator.name,content.title,content.id FROM creator,content WHERE content.id in (SELECT content_id FROM content_item WHERE content_item.id in (SELECT contenttime_id FROM contenttime_item WHERE item_id=%s) GROUP BY content_id) and creator.id = content.creator_id",
-            (self.id,))
-        dbtuple = cur.fetchall()
+        with dictcursor() as cur:
+            cur.execute(
+                "SELECT creator.name,content.title,content.id FROM creator,content WHERE content.id in (SELECT content_id FROM content_item WHERE content_item.id in (SELECT contenttime_id FROM contenttime_item WHERE item_id=%s) GROUP BY content_id) and creator.id = content.creator_id",
+                (self.id,))
+            dbtuple = cur.fetchall()
         return dbtuple
     
     def response(self, para):

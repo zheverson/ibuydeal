@@ -21,11 +21,11 @@ class VideoContent:
         return item_time
 
     def __get_itemtimes(self):
-        cur = dictcursor()
-        cur.execute(
-            "SELECT display_time,ARRAY_AGG(item_id) as items FROM content_item,contenttime_item WHERE content_id=%s and content_item.id=contenttime_item.contenttime_id GROUP BY content_item.id",
-            (self.id,))
-        dbtuple = cur.fetchall()
+        with dictcursor() as cur:
+            cur.execute(
+                "SELECT display_time,ARRAY_AGG(item_id) as items FROM content_item,contenttime_item WHERE content_id=%s and content_item.id=contenttime_item.contenttime_id GROUP BY content_item.id",
+                (self.id,))
+            dbtuple = cur.fetchall()
         return dbtuple
 
     def __timeline(self, dbdata):
@@ -39,11 +39,11 @@ class VideoContent:
         return image_path + 'video_thumbnail/' + platform + '/' + str(self.id)
 
     def get_info(self):
-        cur = dictcursor()
-        cur.execute(
-            "SELECT content.id,title,name FROM content,creator WHERE content.creator_id=creator_id and content.id=%s;",
-            (self.id,))
-        dbtuple = cur.fetchall()
+        with dictcursor() as cur:
+            cur.execute(
+                "SELECT content.id,title,name FROM content,creator WHERE content.creator_id=creator_id and content.id=%s;",
+                (self.id,))
+            dbtuple = cur.fetchall()
 
     def response(self, a):
         if a == "items":
@@ -60,13 +60,12 @@ class ContentList:
     @property
     def db_info(self):
         contents_list = tuple(self._contents_order.keys())
-        cur = dictcursor()
-        cur.execute(
-            "SELECT content.id,title,name FROM content,creator WHERE content.creator_id=creator.id and content.id IN %s;",
-            (contents_list,)
-        )
-
-        dbtuple = cur.fetchall()
+        with dictcursor() as cur:
+            cur.execute(
+                "SELECT content.id,title,name FROM content,creator WHERE content.creator_id=creator.id and content.id IN %s;",
+                (contents_list,)
+            )
+            dbtuple = cur.fetchall()
         return dbtuple
 
     def ordered_info(self):
